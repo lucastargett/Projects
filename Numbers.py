@@ -36,6 +36,8 @@ while True:
     print("6. Cost of Tile to Cover Floor")
     print("7. Monthly mortgage payments")
     print("8 Change return program")
+    print("9. Binary to Decimal and Back Converter")
+    print("10. Calculator")
     print("Press 'q' Key to Quit")
 
 
@@ -172,6 +174,7 @@ while True:
         print(f"Denomination of change: {breakdown_str}")
     
     elif choice == "9":
+         
            
         
     else:
