@@ -1,5 +1,6 @@
 from mpmath import mp
 import numpy as np
+import math
 
 def fibonacci_numpy(n):
         fib_seq = np.zeros(n, dtype=int)
@@ -25,7 +26,64 @@ def is_prime(n):
           if n % i == 0:
                return False
     return True
-     
+
+def binary_to_decimal(binary_str):
+    try:
+        if not all(char in '01' for char in binary_str):
+            raise ValueError("Invalid binary number.")
+        return int(binary_str, 2)
+    except ValueError as e:
+        return f"Error: {e}"
+
+def decimal_to_binary(decimal_str):
+    try:
+        decimal_num = int(decimal_str)
+        return bin(decimal_num)[2:]
+    except ValueError as e:
+        return f"Error: {e}"
+
+def separate_and_convert(input_string):
+    numbers = ""
+    characters = ""
+
+    # Loop through each character in the input string
+    for char in input_string:
+        if char.isdigit() or char == '.':  # Check if it's a number or a decimal point
+            numbers += char
+        elif char.isalpha():  # Check if it's a letter
+            characters += char
+
+    # Convert the numbers part to an integer or float
+    if '.' in numbers:
+        number_value = float(numbers)  # Convert to float if there’s a decimal point
+    else:
+        number_value = int(numbers)  # Convert to int otherwise
+
+    return number_value, characters
+
+def calculate_expression(expression):
+    try:
+        result = eval(expression)
+        return result
+    
+    except Exception as e:
+        return f"error in calculation: {e}"
+
+def unit_converter(unit):
+    if 'c' in unit:
+        fahrenheit = (unit * 9/5) + 32
+    elif 'k' in unit:
+        celcius = (unit - 32) * 5/9
+    elif 'AUD' in unit:
+        USD = unit * 1.49
+        euro = unit * 1.62
+        yen = unit * 0.01
+    elif 'kg' in unit:
+        grams = unit * 1000
+        milligrams = unit * 1000000
+        pounds = unit // 2.205
+        stone = unit * 6.35
+    
 while True:
     print("Choose which maths you want to explore:")
     print("1. Find Pi to the Nth digit")
@@ -38,8 +96,8 @@ while True:
     print("8 Change return program")
     print("9. Binary to Decimal and Back Converter")
     print("10. Calculator")
+    print("11. Unit Converter (temp, currency, colume, mass and more) ")
     print("Press 'q' Key to Quit")
-
 
     choice = input("Enter the number of the option you want to explore: ")
 
@@ -173,10 +231,32 @@ while True:
         breakdown_str = ', '.join([f"{count}x ${denom}" for denom, count in denomination_breakdown.items()])
         print(f"Denomination of change: {breakdown_str}")
     
-    elif choice == "9":
-         
-           
+    elif choice == '9':
+        choice = input("Type '1' to convert binary, or '2' to convert decimal: ")
+
+        if choice == '1':
+            binary_num = input("Enter binary number: ")
+            print(f"The binary conversion of {binary_num} is: {binary_to_decimal(binary_num)}")
+
         
+        elif choice == '2':
+            decimal_num = input("Enter decimal number: ")
+            print(f"The decimal conversion of {decimal_num} is: {decimal_to_binary(decimal_num)}")
+
+        else:
+            print("Pick 1 or 2 for binary/decimal conversion")
+            exit()
+    
+    elif choice == "10":
+        calculate = input("Enter what you would like to calculate: ")
+
+        print(calculate_expression(calculate))
+
+    elif choice == "11":
+        choice = input("enter what you would like to convert (celcius, fahrenheit, AUD or kg) select unit: ")
+        
+        print(unit_converter(choice))
+
     else:
         print("Invalid responses time to give up")
     
@@ -184,14 +264,3 @@ while True:
     if go_again != 'Y':
         print("Goodbye!")
         break
-
-
-
-
-
-
-    
-    
-
-
-
